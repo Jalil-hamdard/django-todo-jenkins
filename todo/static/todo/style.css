@@ -109,3 +109,74 @@ nav a.active { background: #334155; color: #fff; }
     border-radius: 6px;
     cursor: pointer;
 }
+/* --- Responsive Media Queries --- */
+
+@media (max-width: 768px) {
+    /* 1. Stack the Sidebar and Content */
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 1rem;
+        position: relative;
+        text-align: center;
+    }
+
+    .sidebar nav {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .sidebar nav a {
+        margin-bottom: 0;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    /* 2. Adjust Main Header */
+    .content {
+        padding: 1.5rem;
+    }
+
+    .main-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .quick-add {
+        width: 100%;
+    }
+
+    .quick-add input {
+        width: 100%; /* Take full width on mobile */
+    }
+
+    /* 3. Make the Table Scrollable */
+    .table-section {
+        overflow-x: auto; /* Adds a horizontal scrollbar if needed */
+    }
+
+    .task-table {
+        min-width: 600px; /* Ensures the table doesn't get too squished */
+    }
+
+    /* 4. Adjust Stats Grid */
+    .stats-grid {
+        grid-template-columns: 1fr; /* Stack stats vertically */
+    }
+}
+
+@media (max-width: 480px) {
+    .header-info h1 {
+        font-size: 1.4rem;
+    }
+    
+    .sidebar nav a span {
+        display: none; /* Hide text, show only emojis on very small screens */
+    }
+}
