@@ -46,6 +46,30 @@ nav a {
 
 nav a.active { background: #334155; color: #fff; }
 
+nav a {
+    display: flex;
+    align-items: center; /* Vertically centers the icon and text */
+    gap: 12px;           /* Space between icon and text */
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    transition: 0.3s;
+}
+
+.nav-icon {
+    width: 18px;         /* Uniform icon size */
+    height: 18px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Optional: makes icons white if they are black pngs */
+    opacity: 0.7;
+}
+
+nav a.active .nav-icon {
+    opacity: 1;
+}
+
 /* Main Content */
 .content { flex: 1; padding: 2rem 3rem; }
 

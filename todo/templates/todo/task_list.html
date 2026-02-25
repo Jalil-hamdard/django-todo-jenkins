@@ -11,16 +11,22 @@
     <div class="dashboard-container">
         <aside class="sidebar">
             <div class="logo">TaskFlow <span>Pro</span></div>
-            <nav>
-                <a href="{% url 'task_list' %}" 
-                   class="{% if not current_filter %}active{% endif %}">📋 All Tasks</a>
-                
-                <a href="{% url 'task_list' %}?filter=pending" 
-                   class="{% if current_filter == 'pending' %}active{% endif %}">⏳ Pending</a>
-                
-                <a href="{% url 'task_list' %}?filter=completed" 
-                   class="{% if current_filter == 'completed' %}active{% endif %}">✅ Completed</a>
-            </nav>
+        <nav>
+    <a href="{% url 'task_list' %}" 
+       class="{% if not current_filter %}active{% endif %}">
+       <img src="{% static 'icons/select.png' %}" class="nav-icon" alt=""> All Tasks
+    </a>
+    
+    <a href="{% url 'task_list' %}?filter=pending" 
+       class="{% if current_filter == 'pending' %}active{% endif %}">
+       <img src="{% static 'icons/pending.png' %}" class="nav-icon" alt=""> Pending
+    </a>
+    
+    <a href="{% url 'task_list' %}?filter=completed" 
+       class="{% if current_filter == 'completed' %}active{% endif %}">
+       <img src="{% static 'icons/checked.png' %}" class="nav-icon" alt=""> Completed
+    </a>
+</nav>
         </aside>
 
         <main class="content">
