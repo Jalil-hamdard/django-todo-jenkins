@@ -5,37 +5,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
-    <title>TaskFlow | Minimalist To-Do</title>
+    <title>TaskFlow Pro | Dashboard</title>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>TaskFlow</h1>
-            <p>Stay organized, stay productive.</p>
-        </header>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">TaskFlow <span>Pro</span></div>
+            <nav>
+                <a href="#" class="active">📋 All Tasks</a>
+                <a href="#">⏳ Pending</a>
+                <a href="#">✅ Completed</a>
+            </nav>
+        </aside>
 
-        <form method="POST" class="input-group">
-            {% csrf_token %}
-            <input type="text" name="title" placeholder="What needs to be done?" required>
-            <button type="submit" class="add-btn">Add Task</button>
-        </form>
-
-        <div class="task-list">
-            {% for task in tasks %}
-            <div class="task-item {% if task.completed %}completed{% endif %}">
-                <span class="task-text">{{ task.title }}</span>
-                
-                <div class="actions">
-                    <a href="{% url 'complete_task' task.id %}" class="btn-check">
-                        {% if task.completed %}undo{% else %}✓{% endif %}
-                    </a>
-                    <a href="{% url 'delete_task' task.id %}" class="btn-delete">✕</a>
+        <main class="content">
+            <header class="main-header">
+                <div class="header-info">
+                    <h1>Management Dashboard</h1>
+                    <p>Track your production tasks and deployments.</p>
                 </div>
-            </div>
-            {% empty %}
-            <p class="empty-state">No tasks yet. Relax or add one!</p>
-            {% endfor %}
-        </div>
+                <form method="POST" class="quick-add">
+                    {% csrf_token %}
+                    <input type="text" name="title" placeholder="New production task..." required>
+                    <button type="submit">+</button>
+                </form>
+            </header>
+
+            <section class="table-section">
+                <table class="task-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Task Description</th>
+                            <th>Priority</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                        <tr class="{% if task.completed %}row-completed{% endif %}">
+                            <td class="status-cell">
+                                {% if task.completed %}
+                                    <span class="badge success">Done</span>
+                                {% else %}
+                                    <span class="badge warning">Active</span>
+                                {% endif %}
+                            </td>
+                            <td class="title-cell">
+                                <span class="task-title">{{ task.title }}</span>
+                            </td>
+                            <td><span class="p-low">Medium</span></td>
+                            <td class="actions-cell">
+                                <a href="{% url 'complete_task' task.id %}" class="action-btn check">
+                                    {% if task.completed %}↺{% else %}✓{% endif %}
+                                </a>
+                                <a href="{% url 'delete_task' task.id %}" class="action-btn delete">✕</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="4" class="empty-row">No tasks found in current sprint.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </main>
     </div>
 </body>
 </html>
