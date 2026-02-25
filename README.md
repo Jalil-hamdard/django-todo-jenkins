@@ -1,6 +1,6 @@
 📝 TaskFlow: A Production-Ready To-Do Application
 TaskFlow is a full-stack Task Management application built with Django, designed to demonstrate a modern software development lifecycle. This project isn't just about the code—it’s about the infrastructure, utilizing Docker for containerization, Jenkins for CI/CD automation, and AWS for cloud deployment.
-![Image Name](https://github.com/Jalil-hamdard/django-todo-jenkins/blob/main/Screenshot%202026-02-25%20095538.png?raw=true)
+![Image Name](https://github.com/Jalil-hamdard/django-todo-jenkins/blob/main/Screenshot%202026-02-25%20101256.png?raw=true)
 
 🚀 Features
 CRUD Functionality: Add, toggle, and delete tasks in real-time.
