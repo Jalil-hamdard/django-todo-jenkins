@@ -1,23 +1,41 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
-    <title>Todo App</title>
+    <title>TaskFlow | Minimalist To-Do</title>
 </head>
 <body>
-    <h1>WELCOME to TODO APP</h1>
+    <div class="container">
+        <header>
+            <h1>TaskFlow</h1>
+            <p>Stay organized, stay productive.</p>
+        </header>
 
-    <form method="POST">
-        {% csrf_token %}
-        <input type="text" name="title" placeholder="New task">
-        <button type="submit">Add</button>
-    </form>
+        <form method="POST" class="input-group">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="What needs to be done?" required>
+            <button type="submit" class="add-btn">Add Task</button>
+        </form>
 
-    <ul>
-        {% for task in tasks %}
-            <li>{{ task.title }} - {{ task.completed }}</li>
-        {% endfor %}
-    </ul>
+        <div class="task-list">
+            {% for task in tasks %}
+            <div class="task-item {% if task.completed %}completed{% endif %}">
+                <span class="task-text">{{ task.title }}</span>
+                
+                <div class="actions">
+                    <a href="{% url 'complete_task' task.id %}" class="btn-check">
+                        {% if task.completed %}undo{% else %}✓{% endif %}
+                    </a>
+                    <a href="{% url 'delete_task' task.id %}" class="btn-delete">✕</a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="empty-state">No tasks yet. Relax or add one!</p>
+            {% endfor %}
+        </div>
+    </div>
 </body>
 </html>
