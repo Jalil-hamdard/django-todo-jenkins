@@ -12,9 +12,14 @@
         <aside class="sidebar">
             <div class="logo">TaskFlow <span>Pro</span></div>
             <nav>
-                <a href="#" class="active">📋 All Tasks</a>
-                <a href="#">⏳ Pending</a>
-                <a href="#">✅ Completed</a>
+                <a href="{% url 'task_list' %}" 
+                   class="{% if not current_filter %}active{% endif %}">📋 All Tasks</a>
+                
+                <a href="{% url 'task_list' %}?filter=pending" 
+                   class="{% if current_filter == 'pending' %}active{% endif %}">⏳ Pending</a>
+                
+                <a href="{% url 'task_list' %}?filter=completed" 
+                   class="{% if current_filter == 'completed' %}active{% endif %}">✅ Completed</a>
             </nav>
         </aside>
 
@@ -30,6 +35,21 @@
                     <button type="submit">+</button>
                 </form>
             </header>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-label">Total Tasks</span>
+                    <span class="stat-value">{{ total_count }}</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Pending</span>
+                    <span class="stat-value">{{ pending_count }}</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Completed</span>
+                    <span class="stat-value">{{ completed_count }}</span>
+                </div>
+            </section>
 
             <section class="table-section">
                 <table class="task-table">
@@ -56,15 +76,23 @@
                             </td>
                             <td><span class="p-low">Medium</span></td>
                             <td class="actions-cell">
-                                <a href="{% url 'complete_task' task.id %}" class="action-btn check">
+                                <a href="{% url 'complete_task' task.id %}?filter={{ current_filter|default:'' }}" class="action-btn check">
                                     {% if task.completed %}↺{% else %}✓{% endif %}
                                 </a>
-                                <a href="{% url 'delete_task' task.id %}" class="action-btn delete">✕</a>
+                                <a href="{% url 'delete_task' task.id %}?filter={{ current_filter|default:'' }}" class="action-btn delete">✕</a>
                             </td>
                         </tr>
                         {% empty %}
                         <tr>
-                            <td colspan="4" class="empty-row">No tasks found in current sprint.</td>
+                            <td colspan="4" class="empty-row">
+                                {% if current_filter == 'completed' %}
+                                    No completed tasks yet. Finish something! 🚀
+                                {% elif current_filter == 'pending' %}
+                                    All caught up! No pending tasks. 😴
+                                {% else %}
+                                    No tasks found in current sprint.
+                                {% endif %}
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
