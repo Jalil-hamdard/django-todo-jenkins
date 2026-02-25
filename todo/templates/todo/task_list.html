@@ -19,12 +19,12 @@
     
     <a href="{% url 'task_list' %}?filter=pending" 
        class="{% if current_filter == 'pending' %}active{% endif %}">
-       <img src="{% static 'icons/pending.png' %}" class="nav-icon" alt=""> Pending
+       <img src="{% static 'icons/pending.png' %}" class="nav-icon" alt=""> Pending Tasks
     </a>
     
     <a href="{% url 'task_list' %}?filter=completed" 
        class="{% if current_filter == 'completed' %}active{% endif %}">
-       <img src="{% static 'icons/checked.png' %}" class="nav-icon" alt=""> Completed
+       <img src="{% static 'icons/checked.png' %}" class="nav-icon" alt=""> Completed Tasks
     </a>
 </nav>
         </aside>
